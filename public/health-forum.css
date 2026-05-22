@@ -350,6 +350,9 @@ h1 b {
   font-family: var(--font-index);
 }
 
+.mobile-title-line {
+  display: none;
+}
 
 
 .ticket-feature {
@@ -381,11 +384,6 @@ h1 b {
   max-height: 500px;
   object-fit: contain;
   object-position: center top;
-}
-
-.notice-strip p {
-  margin: 0;
-  color: var(--muted);
 }
 
 .story-shell {
@@ -429,11 +427,6 @@ h1 b {
   height: auto;
   background: #000;
   object-fit: contain;
-}
-
-.story-caption {
-  padding: 24px clamp(20px, 3vw, 34px);
-  border-top: 1px solid var(--border);
 }
 
 .lineup-controls {
@@ -512,14 +505,6 @@ h1 b {
 .speaker p {
   margin: 14px 0 0;
   color: var(--muted);
-}
-
-
-
-#s06 .check-list {
-  display: grid;
-  gap: 20px;
-  margin-top: 30px;
 }
 
 #s06 .check-list li {
@@ -915,7 +900,7 @@ h1 b {
   .site-header {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 16px 16px;
   }
 
   .brand {
@@ -927,15 +912,45 @@ h1 b {
   }
 
   .nav {
-    overflow-x: auto;
+    display: flex;
     flex-wrap: nowrap;
-    justify-content: start;
-    padding-bottom: 4px;
+    justify-content: flex-start;
+    gap: 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding-bottom: 8px;
+
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav a {
+    flex: 0 0 auto;
     white-space: nowrap;
+
+    padding: 9px 12px;
     font-size: 14px;
+    line-height: 1;
+
+    border: 1px solid transparent;
+    scroll-snap-align: start;
+  }
+
+  .nav a.is-active {
+    border-color: #C5A059;
+    color: var(--accent);
+    background: var(--surface);
+    font-weight: 600;
+  }
+
+  .section[id] {
+    scroll-margin-top: 120px;
+  }
+
+  .hero[id] {
+    scroll-margin-top: 120px;
   }
 
   /* 共用區塊：手機全部變單欄 */
@@ -966,7 +981,7 @@ h1 b {
   }
 
   .section-lead {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.85;
     margin-top: 18px;
   }
@@ -982,7 +997,7 @@ h1 b {
   }
 
   #s01 .hero-copy {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.8;
   }
 
@@ -1012,14 +1027,12 @@ h1 b {
     border-bottom: 0;
   }
 
-  /* 手機標題：02、06 指定縮小 */
   #s02 h2,
   #s06 h2 {
     font-size: clamp(32px, 9.5vw, 48px);
     line-height: 1.18;
   }
 
-  /* 其他區塊 h2 */
   #s03 h2,
   #s04 h2,
   #s05 h2,
@@ -1054,7 +1067,6 @@ h1 b {
 
   .doctor-copy {
     min-height: auto;
-    padding: 32px 24px;
   }
 
   .doctor-meta {
@@ -1073,6 +1085,12 @@ h1 b {
   }
 
   /* 03 票券 */
+
+
+  .mobile-title-line {
+    display: block;
+  }
+
   .ticket-feature {
     grid-template-columns: 1fr;
   }
