@@ -131,12 +131,10 @@ h3 {
   font-size: clamp(29px, 3.2vw, 40px);
   line-height: 1.08;
   color: #425066;
-  font-family: sans-serif
 }
 
 h1,
-h2
- {
+h2 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
@@ -318,38 +316,9 @@ h1 b {
   padding: clamp(54px, 8vw, 118px) clamp(18px, 5vw, 76px);
 }
 
-.section2 {
+.section-soft {
   background-color: rgb(244 245 240 / 60%);
-  display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
-  gap: clamp(24px, 5vw, 72px);
-  padding: clamp(54px, 8vw, 118px) clamp(18px, 5vw, 76px);
 }
-
-.section4 {
-  background-color: rgb(244 245 240 / 60%);
-  display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
-  gap: clamp(24px, 5vw, 72px);
-  padding: clamp(54px, 8vw, 118px) clamp(18px, 5vw, 76px);
-}
-
-.section6 {
-  background-color: rgb(244 245 240 / 60%);
-  display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
-  gap: clamp(24px, 5vw, 72px);
-  padding: clamp(54px, 8vw, 118px) clamp(18px, 5vw, 76px);
-}
-
-.section8 {
-  background-color: rgb(244 245 240 / 60%);
-  display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
-  gap: clamp(24px, 5vw, 72px);
-  padding: clamp(54px, 8vw, 118px) clamp(18px, 5vw, 76px);
-}
-
 
 .section-number {
   position: sticky;
@@ -437,7 +406,7 @@ h1 b {
 .story-note {
   border-right: 1.5px solid var(--border);
   padding: clamp(24px, 3vw, 36px);
-  background: var(--soft);
+  background: #fff;
 }
 
 
@@ -529,7 +498,7 @@ h1 b {
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
   color: #C5A059;
-  font-size: 1px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: .08em;
   font-family: var(--font-index);
@@ -746,11 +715,6 @@ h1 b {
   font-weight: inherit;
 }
 
-#s08 h2 b {
-  color: #9a7a2f;
-  font-weight: inherit;
-}
-
 /* 三張更新卡片 */
 .archive-grid {
   display: grid;
@@ -905,7 +869,6 @@ h1 b {
   .ticket-feature {
     grid-template-columns: 1fr;
     gap: 48px;
-    padding: -1px 40px;
   }
 
   .section-body {
@@ -1003,14 +966,14 @@ h1 b {
   }
 
   .section-lead {
-  font-size: 16px;
-  line-height: 1.85;
-  margin-top: 18px;
-}
+    font-size: 16px;
+    line-height: 1.85;
+    margin-top: 18px;
+  }
 
-.section-body h2 {
-  margin-bottom: 22px;
-}
+  .section-body h2 {
+    margin-bottom: 22px;
+  }
 
   /* 手機標題：01 */
   #s01 h1 {
