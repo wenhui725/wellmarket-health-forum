@@ -946,11 +946,11 @@ h1 b {
   }
 
   .section[id] {
-    scroll-margin-top: 120px;
+    scroll-margin-top: 100px;
   }
 
   .hero[id] {
-    scroll-margin-top: 120px;
+    scroll-margin-top: 100px;
   }
 
   /* 共用區塊：手機全部變單欄 */
@@ -961,7 +961,7 @@ h1 b {
   .section8 {
     grid-template-columns: 1fr;
     gap: 32px;
-    padding: 64px 22px;
+    padding: 50px 20px;
   }
 
   .hero {
