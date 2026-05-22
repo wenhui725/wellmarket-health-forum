@@ -215,14 +215,19 @@ h1 b {
 
 .photo-block {
   min-height: 600px;
-  display: grid;
-  align-items: end;
-  padding: 18px;
+  position: relative;
+  overflow: hidden;
   border-bottom: 1px solid var(--border);
+}
 
-  background-image: url("./主視覺/第23次健康論壇主視覺_A4DM.jpg");
-  background-size: cover;
-  background-position: center top;
+.photo-block img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 .facts {
