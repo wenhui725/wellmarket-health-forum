@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "威力馬國際第23次健康論壇專題頁",
+  "entry": "wellmare-health-forum-23.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-05-20T05:21:13.150Z",
+  "updatedAt": "2026-05-20T05:34:10.187Z",
+  "metadata": {
+    "identifier": "wellmare-health-forum-23",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}
