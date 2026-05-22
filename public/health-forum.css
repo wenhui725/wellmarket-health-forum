@@ -6,13 +6,10 @@
   --muted: #6b7280;
   --border: rgba(16, 35, 63, 0.14);
   --accent: #9a7a2f;
-  
+
   --font-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   --font-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
   --font-index: "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
-}
-
-  {
   box-sizing: border-box;
 }
 
