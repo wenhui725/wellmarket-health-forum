@@ -904,20 +904,21 @@ h1 b {
     width: 160px;
   }
 
-  .nav {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 8px;
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 8px;
 
-    overflow-x: auto;
-    overflow-y: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 
-    padding-bottom: 8px;
+  padding-bottom: 8px;
 
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-  }
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
 
   .nav a {
     flex: 0 0 auto;
@@ -928,7 +929,7 @@ h1 b {
     line-height: 1;
 
     border: 1px solid transparent;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
 
   .nav a.is-active {

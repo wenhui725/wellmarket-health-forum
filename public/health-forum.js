@@ -1,24 +1,116 @@
 // ==============================
-// Header active state
+// Header active state + Mobile nav auto scroll
 // ==============================
+const nav = document.querySelector(".nav");
 const navLinks = Array.from(document.querySelectorAll(".nav a"));
 const sections = Array.from(document.querySelectorAll("[data-section]"));
+const brandLink = document.querySelector(".brand");
+
+let isManualScrolling = false;
+let manualScrollTimer = null;
+
+function centerMobileNav(activeLink) {
+  if (!nav || !activeLink || window.innerWidth > 760) return;
+
+  const navRect = nav.getBoundingClientRect();
+  const linkRect = activeLink.getBoundingClientRect();
+
+  const targetLeft =
+    nav.scrollLeft +
+    (linkRect.left - navRect.left) -
+    navRect.width / 2 +
+    linkRect.width / 2;
+
+  nav.scrollTo({
+    left: targetLeft,
+    behavior: "smooth",
+  });
+}
+
+function setActiveNav(targetId, shouldCenterNav = true) {
+  const activeHref = "#" + targetId;
+
+  navLinks.forEach((link) => {
+    link.classList.toggle(
+      "is-active",
+      link.getAttribute("href") === activeHref
+    );
+  });
+
+  const activeLink = navLinks.find((link) => {
+    return link.getAttribute("href") === activeHref;
+  });
+
+  if (shouldCenterNav) {
+    centerMobileNav(activeLink);
+  }
+}
+
+function getHeaderOffset() {
+  const header = document.querySelector(".site-header");
+
+  if (!header) return 100;
+
+  return header.offsetHeight;
+}
+
+function scrollToTarget(targetId) {
+  const target = document.getElementById(targetId);
+
+  if (!target) return;
+
+  isManualScrolling = true;
+
+  const offset = getHeaderOffset();
+  const targetTop =
+    target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+  window.scrollTo({
+    top: targetTop,
+    behavior: "smooth",
+  });
+
+  // 點擊時先切換 active，不要立刻讓手機 nav 滑動
+  setActiveNav(targetId, false);
+
+  // 等垂直捲動開始後，再處理手機 nav 水平置中
+  setTimeout(() => {
+    setActiveNav(targetId, true);
+  }, 250);
+
+  clearTimeout(manualScrollTimer);
+
+  manualScrollTimer = setTimeout(() => {
+    isManualScrolling = false;
+  }, 1200);
+}
 
 if (navLinks.length && sections.length) {
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+
+      if (!href || !href.startsWith("#")) return;
+
+      const targetId = href.replace("#", "");
+
+      event.preventDefault();
+
+      scrollToTarget(targetId);
+    });
+  });
+
   const observer = new IntersectionObserver(
     (entries) => {
+      if (isManualScrolling) return;
+
       const visible = entries
         .filter((entry) => entry.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
       if (!visible) return;
 
-      navLinks.forEach((link) => {
-        link.classList.toggle(
-          "is-active",
-          link.getAttribute("href") === "#" + visible.target.id
-        );
-      });
+      setActiveNav(visible.target.id, true);
     },
     {
       threshold: [0.28, 0.45, 0.62],
@@ -28,6 +120,19 @@ if (navLinks.length && sections.length) {
   sections.forEach((section) => observer.observe(section));
 }
 
+if (brandLink) {
+  brandLink.addEventListener("click", (event) => {
+    const href = brandLink.getAttribute("href");
+
+    if (!href || !href.startsWith("#")) return;
+
+    const targetId = href.replace("#", "");
+
+    event.preventDefault();
+
+    scrollToTarget(targetId);
+  });
+}
 
 // ==============================
 // Story tabs：如果頁面沒有 story-tab，就不執行
