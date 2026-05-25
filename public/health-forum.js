@@ -31,10 +31,13 @@ function setActiveNav(targetId, shouldCenterNav = true) {
   const activeHref = "#" + targetId;
 
   navLinks.forEach((link) => {
-    link.classList.toggle(
-      "is-active",
-      link.getAttribute("href") === activeHref
-    );
+    const isCurrent = link.getAttribute("href") === activeHref;
+
+    link.classList.toggle("is-active", isCurrent);
+
+    if (!isCurrent) {
+      link.blur();
+    }
   });
 
   const activeLink = navLinks.find((link) => {
@@ -51,7 +54,34 @@ function getHeaderOffset() {
 
   if (!header) return 100;
 
-  return header.offsetHeight;
+  return header.offsetHeight - 4;
+}
+
+function getCurrentSectionId() {
+  const offset = getHeaderOffset();
+  const checkPoint = offset + window.innerHeight * 0.38;
+
+  let currentSectionId = sections[0]?.id;
+
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+
+    if (rect.top <= checkPoint) {
+      currentSectionId = section.id;
+    }
+  });
+
+  return currentSectionId;
+}
+
+function updateActiveByScroll() {
+  if (isManualScrolling) return;
+
+  const currentSectionId = getCurrentSectionId();
+
+  if (!currentSectionId) return;
+
+  setActiveNav(currentSectionId, true);
 }
 
 function scrollToTarget(targetId) {
@@ -70,19 +100,22 @@ function scrollToTarget(targetId) {
     behavior: "smooth",
   });
 
-  // 點擊時先切換 active，不要立刻讓手機 nav 滑動
   setActiveNav(targetId, false);
 
-  // 等垂直捲動開始後，再處理手機 nav 水平置中
   setTimeout(() => {
-    setActiveNav(targetId, true);
-  }, 250);
+    const activeLink = navLinks.find((link) => {
+      return link.getAttribute("href") === "#" + targetId;
+    });
+
+    centerMobileNav(activeLink);
+  }, 280);
 
   clearTimeout(manualScrollTimer);
 
   manualScrollTimer = setTimeout(() => {
     isManualScrolling = false;
-  }, 1200);
+    updateActiveByScroll();
+  }, 1300);
 }
 
 if (navLinks.length && sections.length) {
@@ -96,28 +129,17 @@ if (navLinks.length && sections.length) {
 
       event.preventDefault();
 
+      link.blur();
+
       scrollToTarget(targetId);
     });
   });
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (isManualScrolling) return;
+  window.addEventListener("scroll", () => {
+    window.requestAnimationFrame(updateActiveByScroll);
+  });
 
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-      if (!visible) return;
-
-      setActiveNav(visible.target.id, true);
-    },
-    {
-      threshold: [0.28, 0.45, 0.62],
-    }
-  );
-
-  sections.forEach((section) => observer.observe(section));
+  updateActiveByScroll();
 }
 
 if (brandLink) {
@@ -129,6 +151,8 @@ if (brandLink) {
     const targetId = href.replace("#", "");
 
     event.preventDefault();
+
+    brandLink.blur();
 
     scrollToTarget(targetId);
   });
