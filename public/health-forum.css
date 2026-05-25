@@ -7,6 +7,7 @@
   --border: rgba(16, 35, 63, 0.14);
   --accent: #9a7a2f;
 
+
   --font-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   --font-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
   --font-index: "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
@@ -170,7 +171,7 @@ h1 b {
 }
 
 .btn.accent {
-  background: var(--accent);
+  background: #CE0045;
   color: var(--bg);
   border: #000;
 }
@@ -182,9 +183,9 @@ h1 b {
   justify-content: center;
   gap: 9px;
   padding: 13px 18px;
-  border: 1px solid #b51f2b;
+  border: 1px solid #CE0045;
   background: var(--bg);
-  color: #b51f2b;
+  color: #CE0045;
   text-decoration: none;
   line-height: 1;
   font-family: var(--font-index);
@@ -192,7 +193,7 @@ h1 b {
 }
 
 .btn.primary {
-  background: #b51f2b;
+  background: #CE0045;
   color: var(--bg);
   font-size: 16px;
 }
@@ -338,7 +339,7 @@ h1 b {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: .1em;
-  color: var(--accent);
+  color: #e88aa8;
   font-family: var(--font-index);
 }
 
@@ -482,7 +483,7 @@ h1 b {
   width: fit-content;
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
-  color: #C5A059;
+  color: #e88aa8;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: .08em;
@@ -774,20 +775,23 @@ h1 b {
   margin-top: 24px;
 }
 
+/* 照片卡片容器 */
 .archive-photo-card {
   position: relative;
   min-height: 210px;
   margin: 0;
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: #000;
   overflow: hidden;
 }
 
+/* 大張照片 */
 .archive-photo-card-large {
   grid-row: span 2;
   min-height: 440px;
 }
 
+/* 照片本體：預設狀態 */
 .archive-photo-card img {
   display: block;
   width: 100%;
@@ -795,24 +799,64 @@ h1 b {
   min-height: 210px;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.4s ease;
+  transform: scale(1) translate3d(0, 0, 0);
+  filter: brightness(0.96) contrast(1);
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter;
 }
 
-.archive-photo-card:hover img {
-  transform: scale(1.04);
+/* 照片暗角：讓文字更清楚，也增加景深感 */
+.archive-photo-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.34) 100%
+  );
+  opacity: 0.72;
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* 照片標籤 */
 .archive-photo-card figcaption {
   position: absolute;
   left: 14px;
   bottom: 14px;
+  z-index: 2;
   padding: 6px 10px;
   background: rgba(0, 0, 0, 0.58);
   color: #fff;
   font-size: 13px;
   letter-spacing: 0.04em;
   font-family: var(--font-index);
+  transform: translateY(0);
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    background 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* 只有滑鼠裝置才啟用 hover 效果，避免手機誤判 */
+@media (hover: hover) and (pointer: fine) {
+  .archive-photo-card:hover img {
+    transform: scale(1.09) translate3d(0, -8px, 0);
+    filter: brightness(1.03) contrast(1.05);
+  }
+
+  .archive-photo-card:hover::after {
+    opacity: 0.45;
+  }
+
+  .archive-photo-card:hover figcaption {
+    transform: translateY(-4px);
+    background: rgba(0, 0, 0, 0.68);
+  }
+}
+
 
 /* =========================
    08 活動紀錄：影片與花絮
@@ -833,6 +877,7 @@ h1 b {
   overflow: hidden;
 }
 
+/* 影片 / 花絮縮圖容器 */
 .archive-media-thumb {
   position: relative;
   min-height: 260px;
@@ -840,6 +885,7 @@ h1 b {
   overflow: hidden;
 }
 
+/* 影片 / 花絮圖片本體 */
 .archive-media-thumb img {
   display: block;
   width: 100%;
@@ -847,12 +893,20 @@ h1 b {
   min-height: 260px;
   object-fit: cover;
   object-position: center;
+  transform: scale(1) translate3d(0, 0, 0);
+  filter: brightness(0.96) contrast(1);
+  transition:
+    transform 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter;
 }
 
+/* 影片標籤 */
 .archive-play-label {
   position: absolute;
   left: 14px;
   bottom: 14px;
+  z-index: 2;
   padding: 7px 12px;
   background: rgba(0, 0, 0, 0.68);
   color: #fff;
@@ -860,6 +914,14 @@ h1 b {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-family: var(--font-index);
+}
+
+/* 滑鼠 hover 時，影片 / 花絮圖片慢慢往前 */
+@media (hover: hover) and (pointer: fine) {
+  .archive-media-card:hover .archive-media-thumb img {
+    transform: scale(1.08) translate3d(0, -6px, 0);
+    filter: brightness(1.03) contrast(1.05);
+  }
 }
 
 .archive-media-copy {
@@ -878,7 +940,11 @@ h1 b {
   color: var(--muted);
 }
 
-/* 狀態標籤 */
+
+/* =========================
+   08 活動紀錄：狀態標籤
+   ========================= */
+
 .archive-status {
   display: inline-flex;
   align-items: center;
@@ -900,7 +966,11 @@ h1 b {
   background: #9a7a2f;
 }
 
-/* 底部補充說明 */
+
+/* =========================
+   08 活動紀錄：底部補充說明
+   ========================= */
+
 .archive-note {
   margin-top: 28px;
   padding: 0;
@@ -909,9 +979,6 @@ h1 b {
   max-width: 920px;
 }
 
-.archive-note .eyebrow {
-  color: #9a7a2f;
-}
 
 .archive-note p:last-child {
   margin-top: 10px;
@@ -967,28 +1034,46 @@ h1 b {
 
 /* 下一場預告卡片 */
 .footer-preview {
+  position: relative;
   max-width: 760px;
-  margin-top: 34px;
-  padding: 24px 28px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
+  margin-top: 38px;
+  padding: 32px 34px;
+  border: 1px solid rgba(211, 179, 106, 0.26);
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
 }
 
+
+/* NEXT FORUM 小標籤 */
 .footer-preview .eyebrow {
-  margin: 0 0 12px;
-  color: #d3b36a;
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(206, 0, 69, 0.12);
+  color: #f2a5bd;
+  font-size: 12px;
+  letter-spacing: 0.08em;
 }
 
+/* 卡片標題 */
 .footer-preview h3 {
   color: #fff;
-  font-size: clamp(26px, 2.4vw, 38px);
-  line-height: 1.2;
+  font-size: clamp(28px, 2.5vw, 40px);
+  line-height: 1.25;
 }
 
+/* 卡片內文 */
 .footer-preview p:not(.eyebrow) {
-  max-width: 680px;
-  margin-top: 14px;
-  color: rgba(255, 255, 255, 0.72);
+  max-width: 660px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.76);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
   font-size: clamp(15px, 1.05vw, 17px);
   line-height: 1.9;
@@ -1187,12 +1272,6 @@ h1 b {
     min-width: 0;
   }
 
-  .section-lead {
-    font-size: 18px;
-    line-height: 1.85;
-    margin-top: 18px;
-  }
-
   .section-body h2 {
     margin-bottom: 22px;
   }
@@ -1252,6 +1331,7 @@ h1 b {
   .section-lead {
     font-size: 16px;
     line-height: 1.8;
+    margin-top: 18px;
   }
 
   /* 02 醫師區 */
@@ -1362,7 +1442,7 @@ h1 b {
     margin-top: 4px;
     padding-bottom: 4px;
     border-bottom: 1px solid currentColor;
-    color: #C5A059;
+    color: #e88aa8;
     font-size: 12px;
     line-height: 1.2;
     text-transform: uppercase;
@@ -1418,8 +1498,7 @@ h1 b {
     max-height: none;
   }
 
-/* 08 活動紀錄 */
-@media (max-width: 760px) {
+  /* 08 活動紀錄 */
   .archive-feature {
     grid-template-columns: 1fr;
   }
@@ -1496,5 +1575,4 @@ h1 b {
   #archiveVideos {
     scroll-margin-top: 140px;
   }
-}
 }
