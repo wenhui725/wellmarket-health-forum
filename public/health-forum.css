@@ -91,7 +91,15 @@ button {
   color: var(--fg);
 }
 
-.nav a.is-active {
+.nav a:hover {
+      border-color: #C5A059;
+      color: var(--accent);
+      background: var(--surface);
+      font-weight: 500;
+    }
+
+.nav a.is-active
+ {
   border-color: #C5A059;
   color: var(--accent);
   background: var(--surface);
