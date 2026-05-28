@@ -499,7 +499,7 @@ h1 b {
 
 .speaker h3 {
   margin-top: 24px;
-  font-size: clamp(30px, 3vw, 50px);
+  font-size: clamp(30px, 3vw, 35px);
 }
 
 .speaker p {
