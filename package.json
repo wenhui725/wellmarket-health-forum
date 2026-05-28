@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "webp": "node toWebp.cjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

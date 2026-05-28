@@ -92,14 +92,13 @@ button {
 }
 
 .nav a:hover {
-      border-color: #C5A059;
-      color: var(--accent);
-      background: var(--surface);
-      font-weight: 500;
-    }
+  border-color: #C5A059;
+  color: var(--accent);
+  background: var(--surface);
+  font-weight: 500;
+}
 
-.nav a.is-active
- {
+.nav a.is-active {
   border-color: #C5A059;
   color: var(--accent);
   background: var(--surface);
@@ -821,11 +820,9 @@ h1 b {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.04) 0%,
-    rgba(0, 0, 0, 0.34) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.04) 0%,
+      rgba(0, 0, 0, 0.34) 100%);
   opacity: 0.72;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1048,11 +1045,9 @@ h1 b {
   padding: 32px 34px;
   border: 1px solid rgba(211, 179, 106, 0.26);
   border-radius: 10px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.04) 100%);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
   overflow: hidden;
 }
